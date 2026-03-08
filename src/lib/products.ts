@@ -95,12 +95,39 @@ export function getHotItems(): CuratedItem[] {
   return curatedItems.filter((item) => item.isHot)
 }
 
-// 쿠팡 검색 URL 생성 (어필리에이트 링크 전환 가능)
+// 쿠팡 파트너스 어필리에이트 검색 URL 생성
+// 쿠팡 검색 페이지로 연결 (파트너스 트래킹 쿠키 적용)
 export function getCoupangSearchUrl(keyword: string): string {
-  return `https://www.coupang.com/np/search?component=&q=${encodeURIComponent(keyword)}`
+  const params = new URLSearchParams({
+    component: "",
+    q: keyword,
+    channel: "user",
+    channel_label: "dealmoa",
+  })
+  return `https://www.coupang.com/np/search?${params.toString()}`
 }
 
 // 쿠팡 카테고리 URL 생성
 export function getCoupangCategoryUrl(categoryId: string): string {
   return `https://www.coupang.com/np/categories/${categoryId}`
+}
+
+// 쿠팡 파트너스 위젯 배너 iframe URL 생성
+export function getCoupangWidgetUrl(options: {
+  widgetId: string
+  template?: string
+  width?: number
+  height?: number
+}): string {
+  const { widgetId, template = "carousel", width = 680, height = 140 } = options
+  const params = new URLSearchParams({
+    id: widgetId,
+    template,
+    trackingCode: "AF5256637",
+    subId: "dealmoa",
+    width: width.toString(),
+    height: height.toString(),
+    tsource: "",
+  })
+  return `https://ads-partners.coupang.com/widgets.html?${params.toString()}`
 }

@@ -2,9 +2,26 @@
 
 import { Search, ShoppingCart, Truck } from "lucide-react"
 import { getCoupangSearchUrl } from "@/lib/products"
+import { COUPANG_PARTNERS } from "@/lib/constants"
 import { useState, FormEvent } from "react"
 
-export default function CoupangBanner() {
+interface CoupangBannerProps {
+  /** 파트너스 대시보드에서 생성한 배너 위젯 ID (있으면 iframe 노출) */
+  widgetId?: string
+  /** 배너 템플릿 타입 */
+  template?: "carousel" | "banner" | "category"
+  /** 배너 너비 */
+  width?: number
+  /** 배너 높이 */
+  height?: number
+}
+
+export default function CoupangBanner({
+  widgetId,
+  template = "carousel",
+  width = 680,
+  height = 140,
+}: CoupangBannerProps) {
   const [query, setQuery] = useState("")
 
   function handleSearch(e: FormEvent) {
@@ -21,6 +38,22 @@ export default function CoupangBanner() {
           <ShoppingCart className="h-5 w-5 text-blue-600" />
           <p className="text-base font-bold text-gray-900">쿠팡에서 직접 검색해보세요</p>
         </div>
+
+        {/* 파트너스 위젯 배너 (widgetId가 있으면 iframe 노출) */}
+        {widgetId && (
+          <div className="mb-4 flex justify-center">
+            <iframe
+              src={`${COUPANG_PARTNERS.widgetBaseUrl}?id=${widgetId}&template=${template}&trackingCode=${COUPANG_PARTNERS.trackingCode}&subId=${COUPANG_PARTNERS.subId}&width=${width}&height=${height}&tsource=`}
+              width={width}
+              height={height}
+              frameBorder="0"
+              scrolling="no"
+              referrerPolicy="unsafe-url"
+              className="max-w-full"
+              title="쿠팡 파트너스 추천 상품"
+            />
+          </div>
+        )}
 
         {/* 인라인 검색 */}
         <form onSubmit={handleSearch} className="max-w-md mx-auto mb-4">
