@@ -3,7 +3,7 @@ import { categories } from "@/lib/products"
 
 export default function CategorySection() {
   return (
-    <section className="py-6">
+    <section className="py-4">
       <h2 className="text-lg font-bold text-gray-900 mb-4 px-1">카테고리</h2>
       <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
         {categories.map((cat) => (

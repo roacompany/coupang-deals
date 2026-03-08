@@ -1,65 +1,67 @@
-import { ArrowRight, Clock, Flame, Star } from "lucide-react"
+import { ArrowRight, Flame, Search, Sparkles } from "lucide-react"
 import Link from "next/link"
 import ProductCard from "@/components/ProductCard"
 import CategorySection from "@/components/CategorySection"
 import CoupangBanner from "@/components/CoupangBanner"
-import { getHotDeals, categories, getProductsByCategory } from "@/lib/products"
+import TrendingSearch from "@/components/TrendingSearch"
+import { getHotItems, categories, getCuratedByCategory } from "@/lib/products"
 import { SITE_NAME } from "@/lib/constants"
 
 export default function HomePage() {
-  const hotDeals = getHotDeals()
+  const hotItems = getHotItems()
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 rounded-2xl p-6 md:p-10 mb-8 text-white">
+      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 rounded-2xl p-6 md:p-10 mb-6 text-white">
         <div className="flex items-center gap-2 mb-2">
-          <Flame className="h-5 w-5 text-orange-300" />
+          <Sparkles className="h-5 w-5 text-yellow-300" />
           <span className="text-sm font-medium text-blue-200">매일 업데이트</span>
         </div>
         <h1 className="text-2xl md:text-4xl font-bold mb-2">
           오늘의 추천 딜
         </h1>
         <p className="text-blue-200 text-sm md:text-base mb-4">
-          {SITE_NAME}이 엄선한 최저가 상품을 만나보세요
+          {SITE_NAME}이 엄선한 인기 상품을 쿠팡 최저가로 만나보세요
         </p>
-        <div className="flex items-center gap-4 text-xs text-blue-200">
-          <span className="flex items-center gap-1">
-            <Clock className="h-3.5 w-3.5" />
-            24시간 내 구매 시 적용
+        <div className="flex items-center gap-2 text-xs">
+          <span className="bg-white/20 px-2.5 py-1 rounded-full flex items-center gap-1">
+            <Search className="h-3 w-3" /> 검색 즉시 쿠팡 연결
           </span>
-          <span className="flex items-center gap-1">
-            <Star className="h-3.5 w-3.5" />
-            최대 50% 할인
+          <span className="bg-white/20 px-2.5 py-1 rounded-full">
+            로켓배송 무료배송
           </span>
         </div>
       </section>
+
+      {/* Trending Search */}
+      <TrendingSearch />
 
       {/* Categories */}
       <CategorySection />
 
-      {/* Hot Deals */}
+      {/* Hot Items */}
       <section className="py-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
             <Flame className="h-5 w-5 text-red-500" />
-            핫딜 TOP
+            핫딜 추천
           </h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-          {hotDeals.map((product) => (
-            <ProductCard key={product.id} product={product} />
+          {hotItems.map((item) => (
+            <ProductCard key={item.id} item={item} />
           ))}
         </div>
       </section>
 
-      {/* Coupang Banner */}
+      {/* Coupang Search Banner */}
       <CoupangBanner />
 
       {/* Category Sections */}
       {categories.slice(0, 3).map((cat) => {
-        const categoryProducts = getProductsByCategory(cat.slug)
-        if (categoryProducts.length === 0) return null
+        const items = getCuratedByCategory(cat.slug)
+        if (items.length === 0) return null
         return (
           <section key={cat.slug} className="py-6">
             <div className="flex items-center justify-between mb-4">
@@ -74,8 +76,8 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-              {categoryProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+              {items.map((item) => (
+                <ProductCard key={item.id} item={item} />
               ))}
             </div>
           </section>
