@@ -4,6 +4,7 @@ import Link from "next/link"
 import ProductCard from "@/components/ProductCard"
 import CoupangBanner from "@/components/CoupangBanner"
 import { categories, getCuratedByCategory, getCoupangSearchUrl } from "@/lib/products"
+import { BANNERS } from "@/lib/constants"
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -93,7 +94,7 @@ export default async function CategoryPage({ params }: Props) {
       )}
 
       {/* Coupang Banner */}
-      <CoupangBanner />
+      <CoupangBanner banner={BANNERS[0]} />
     </div>
   )
 }

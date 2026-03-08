@@ -5,7 +5,7 @@ import CategorySection from "@/components/CategorySection"
 import CoupangBanner from "@/components/CoupangBanner"
 import TrendingSearch from "@/components/TrendingSearch"
 import { getHotItems, categories, getCuratedByCategory } from "@/lib/products"
-import { SITE_NAME } from "@/lib/constants"
+import { SITE_NAME, BANNERS } from "@/lib/constants"
 
 export default function HomePage() {
   const hotItems = getHotItems()
@@ -56,7 +56,7 @@ export default function HomePage() {
       </section>
 
       {/* Coupang Search Banner */}
-      <CoupangBanner />
+      <CoupangBanner banner={BANNERS[0]} />
 
       {/* Category Sections */}
       {categories.slice(0, 3).map((cat) => {

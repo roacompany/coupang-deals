@@ -2,26 +2,23 @@
 
 import { Search, ShoppingCart, Truck } from "lucide-react"
 import { getCoupangSearchUrl } from "@/lib/products"
-import { COUPANG_PARTNERS } from "@/lib/constants"
 import { useState, FormEvent } from "react"
 
-interface CoupangBannerProps {
-  /** 파트너스 대시보드에서 생성한 배너 위젯 ID (있으면 iframe 노출) */
-  widgetId?: string
-  /** 배너 템플릿 타입 */
-  template?: "carousel" | "banner" | "category"
-  /** 배너 너비 */
-  width?: number
-  /** 배너 높이 */
-  height?: number
+export interface PartnersBanner {
+  /** 어필리에이트 링크 (예: https://link.coupang.com/a/dZ2sKJ) */
+  affiliateLink: string
+  /** 배너 이미지 URL (예: https://ads-partners.coupang.com/banners/970635?subId=dealmoa&...) */
+  imageUrl: string
+  /** alt 텍스트 */
+  alt?: string
 }
 
-export default function CoupangBanner({
-  widgetId,
-  template = "carousel",
-  width = 680,
-  height = 140,
-}: CoupangBannerProps) {
+interface CoupangBannerProps {
+  /** 파트너스 대시보드에서 생성한 배너 (있으면 이미지 배너 노출) */
+  banner?: PartnersBanner
+}
+
+export default function CoupangBanner({ banner }: CoupangBannerProps) {
   const [query, setQuery] = useState("")
 
   function handleSearch(e: FormEvent) {
@@ -39,19 +36,22 @@ export default function CoupangBanner({
           <p className="text-base font-bold text-gray-900">쿠팡에서 직접 검색해보세요</p>
         </div>
 
-        {/* 파트너스 위젯 배너 (widgetId가 있으면 iframe 노출) */}
-        {widgetId && (
+        {/* 파트너스 배너 (대시보드에서 생성한 배너) */}
+        {banner && (
           <div className="mb-4 flex justify-center">
-            <iframe
-              src={`${COUPANG_PARTNERS.widgetBaseUrl}?id=${widgetId}&template=${template}&trackingCode=${COUPANG_PARTNERS.trackingCode}&subId=${COUPANG_PARTNERS.subId}&width=${width}&height=${height}&tsource=`}
-              width={width}
-              height={height}
-              frameBorder="0"
-              scrolling="no"
+            <a
+              href={banner.affiliateLink}
+              target="_blank"
               referrerPolicy="unsafe-url"
-              className="max-w-full"
-              title="쿠팡 파트너스 추천 상품"
-            />
+              className="inline-block rounded-lg overflow-hidden hover:opacity-90 transition-opacity"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={banner.imageUrl}
+                alt={banner.alt || "쿠팡 추천 상품"}
+                className="max-w-full h-auto"
+              />
+            </a>
           </div>
         )}
 
