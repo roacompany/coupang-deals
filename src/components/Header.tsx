@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState, FormEvent } from "react"
-import { Search, Menu, X, ShoppingBag } from "lucide-react"
+import { Search, Menu, X, Baby } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { categories, getCoupangSearchUrl } from "@/lib/products"
 import { SITE_NAME } from "@/lib/constants"
@@ -14,7 +14,6 @@ export default function Header() {
   function handleSearch(e: FormEvent) {
     e.preventDefault()
     if (!searchQuery.trim()) return
-    // 쿠팡 검색으로 리다이렉트 (어필리에이트 링크)
     window.open(getCoupangSearchUrl(searchQuery.trim()), "_blank", "noopener,noreferrer")
     setSearchQuery("")
   }
@@ -22,15 +21,15 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b shadow-sm">
       {/* Top bar */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center text-xs py-1.5 px-4">
-        쿠팡 최저가 상품을 검색하고 비교해보세요
+      <div className="bg-gradient-to-r from-pink-500 to-rose-500 text-white text-center text-xs py-1.5 px-4">
+        엄마아빠가 직접 고른 육아용품 최저가 추천
       </div>
 
       <div className="max-w-6xl mx-auto px-4">
         {/* Main header */}
         <div className="flex items-center justify-between h-14">
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <ShoppingBag className="h-6 w-6 text-blue-600" />
+            <Baby className="h-6 w-6 text-pink-500" />
             <span className="text-xl font-bold text-gray-900">{SITE_NAME}</span>
           </Link>
 
@@ -39,14 +38,14 @@ export default function Header() {
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
-                placeholder="쿠팡에서 검색... (예: 에어팟, 다이슨)"
+                placeholder="육아용품 검색... (예: 기저귀, 분유, 유모차)"
                 className="pl-10 pr-16 bg-gray-50 border-gray-200"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
               <button
                 type="submit"
-                className="absolute right-1 top-1/2 -translate-y-1/2 bg-blue-600 text-white text-xs font-medium px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors"
+                className="absolute right-1 top-1/2 -translate-y-1/2 bg-pink-500 text-white text-xs font-medium px-3 py-1.5 rounded-md hover:bg-pink-600 transition-colors"
               >
                 검색
               </button>
@@ -65,15 +64,15 @@ export default function Header() {
         <nav className="hidden md:flex gap-1 pb-2 overflow-x-auto">
           <Link
             href="/"
-            className="px-3 py-1.5 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors whitespace-nowrap"
+            className="px-3 py-1.5 text-sm font-medium text-gray-700 hover:text-pink-600 hover:bg-pink-50 rounded-full transition-colors whitespace-nowrap"
           >
-            🔥 오늘의 딜
+            🔥 인기 추천
           </Link>
           {categories.map((cat) => (
             <Link
               key={cat.slug}
               href={`/category/${cat.slug}`}
-              className="px-3 py-1.5 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors whitespace-nowrap"
+              className="px-3 py-1.5 text-sm font-medium text-gray-700 hover:text-pink-600 hover:bg-pink-50 rounded-full transition-colors whitespace-nowrap"
             >
               {cat.emoji} {cat.name}
             </Link>
@@ -85,18 +84,17 @@ export default function Header() {
       {isMenuOpen && (
         <div className="md:hidden border-t bg-white">
           <div className="p-4">
-            {/* Mobile search */}
             <form onSubmit={handleSearch} className="relative mb-4">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
-                placeholder="쿠팡에서 검색..."
+                placeholder="육아용품 검색..."
                 className="pl-10 pr-16 bg-gray-50"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
               <button
                 type="submit"
-                className="absolute right-1 top-1/2 -translate-y-1/2 bg-blue-600 text-white text-xs font-medium px-3 py-1.5 rounded-md"
+                className="absolute right-1 top-1/2 -translate-y-1/2 bg-pink-500 text-white text-xs font-medium px-3 py-1.5 rounded-md"
               >
                 검색
               </button>
@@ -104,16 +102,16 @@ export default function Header() {
             <nav className="flex flex-col gap-1">
               <Link
                 href="/"
-                className="px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-blue-50 rounded-lg"
+                className="px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-pink-50 rounded-lg"
                 onClick={() => setIsMenuOpen(false)}
               >
-                🔥 오늘의 딜
+                🔥 인기 추천
               </Link>
               {categories.map((cat) => (
                 <Link
                   key={cat.slug}
                   href={`/category/${cat.slug}`}
-                  className="px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-blue-50 rounded-lg"
+                  className="px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-pink-50 rounded-lg"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {cat.emoji} {cat.name}

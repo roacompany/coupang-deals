@@ -1,20 +1,16 @@
 "use client"
 
-import { Search, ShoppingCart, Truck } from "lucide-react"
+import { Search, Heart, Truck } from "lucide-react"
 import { getCoupangSearchUrl } from "@/lib/products"
 import { useState, FormEvent } from "react"
 
 export interface PartnersBanner {
-  /** 어필리에이트 링크 (예: https://link.coupang.com/a/dZ2sKJ) */
   affiliateLink: string
-  /** 배너 이미지 URL (예: https://ads-partners.coupang.com/banners/970635?subId=dealmoa&...) */
   imageUrl: string
-  /** alt 텍스트 */
   alt?: string
 }
 
 interface CoupangBannerProps {
-  /** 파트너스 대시보드에서 생성한 배너 (있으면 이미지 배너 노출) */
   banner?: PartnersBanner
 }
 
@@ -29,14 +25,14 @@ export default function CoupangBanner({ banner }: CoupangBannerProps) {
   }
 
   return (
-    <div className="my-6 rounded-xl overflow-hidden border border-blue-100 bg-gradient-to-r from-blue-50 via-white to-indigo-50 p-6">
+    <div className="my-6 rounded-xl overflow-hidden border border-pink-100 bg-gradient-to-r from-pink-50 via-white to-rose-50 p-6">
       <div className="text-center">
         <div className="flex items-center justify-center gap-3 mb-3">
-          <ShoppingCart className="h-5 w-5 text-blue-600" />
-          <p className="text-base font-bold text-gray-900">쿠팡에서 직접 검색해보세요</p>
+          <Heart className="h-5 w-5 text-pink-500" />
+          <p className="text-base font-bold text-gray-900">쿠팡에서 육아용품 검색</p>
         </div>
 
-        {/* 파트너스 배너 (대시보드에서 생성한 배너) */}
+        {/* 파트너스 배너 */}
         {banner && (
           <div className="mb-4 flex justify-center">
             <a
@@ -48,8 +44,8 @@ export default function CoupangBanner({ banner }: CoupangBannerProps) {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={banner.imageUrl}
-                alt={banner.alt || "쿠팡 추천 상품"}
-                className="max-w-full h-auto"
+                alt={banner.alt || "쿠팡 육아용품 추천"}
+                className="max-w-full h-auto max-h-[300px] object-contain"
               />
             </a>
           </div>
@@ -61,29 +57,29 @@ export default function CoupangBanner({ banner }: CoupangBannerProps) {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <input
               type="text"
-              placeholder="찾고 싶은 상품을 검색하세요"
-              className="w-full pl-10 pr-20 py-3 rounded-xl border border-blue-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+              placeholder="기저귀, 분유, 유모차 등 검색"
+              className="w-full pl-10 pr-20 py-3 rounded-xl border border-pink-200 bg-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent text-sm"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
             <button
               type="submit"
-              className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-pink-500 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-pink-600 transition-colors"
             >
               검색
             </button>
           </div>
         </form>
 
-        {/* 빠른 검색 버튼들 */}
+        {/* 빠른 검색 */}
         <div className="flex flex-wrap justify-center gap-2 mb-4">
-          {["오늘의 특가", "로켓배송", "골드박스", "쿠팡 플레이"].map((term) => (
+          {["기저귀 특가", "분유 할인", "유아 로션", "장난감 세일"].map((term) => (
             <a
               key={term}
               href={getCoupangSearchUrl(term)}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs text-gray-600 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50 transition-all"
+              className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs text-gray-600 hover:border-pink-300 hover:text-pink-600 hover:bg-pink-50 transition-all"
             >
               {term}
             </a>

@@ -39,7 +39,7 @@ export default async function CategoryPage({ params }: Props) {
       {/* Breadcrumb */}
       <Link
         href="/"
-        className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 mb-4"
+        className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-pink-600 mb-4"
       >
         <ArrowLeft className="h-4 w-4" />
         홈으로
@@ -68,7 +68,7 @@ export default async function CategoryPage({ params }: Props) {
               href={getCoupangSearchUrl(keyword)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50 transition-all"
+              className="inline-flex items-center gap-1 px-3 py-1.5 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-pink-300 hover:text-pink-600 hover:bg-pink-50 transition-all"
             >
               {keyword}
               <ExternalLink className="h-3 w-3" />
@@ -87,7 +87,7 @@ export default async function CategoryPage({ params }: Props) {
       ) : (
         <div className="text-center py-12 bg-white rounded-xl border border-gray-100">
           <p className="text-gray-500">아직 등록된 상품이 없습니다.</p>
-          <Link href="/" className="text-blue-600 text-sm mt-2 inline-block">
+          <Link href="/" className="text-pink-600 text-sm mt-2 inline-block">
             홈으로 돌아가기
           </Link>
         </div>
